@@ -850,6 +850,19 @@ function ProductsPage({ navigate }) {
   );
 }
 
+// ─── QR CODE COMPONENT (Using external API for simplicity) ─────────────────
+
+function QRCode({ value }) {
+  return (
+    <img
+      src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
+        value,
+      )}`}
+      alt="QR Code"
+    />
+  );
+}
+
 // ─── PRODUCT DETAIL PAGE ──────────────────────────────────────────────────────
 
 function ProductDetailPage({ id, navigate }) {
@@ -891,7 +904,7 @@ function ProductDetailPage({ id, navigate }) {
   const waMsg = encodeURIComponent(
     `Hi! I'm interested in the "${product.name}" (ID: ${product.id}) — priced at SAR ${product.price.toLocaleString()}. Can you provide more information?`,
   );
-  const productUrl = `https://prototype-furniture.com/product/${product.id}`;
+  const productUrl = `https://furniture-qr-store.vercel.app/product/${product.id}`;
 
   const handleSave = () => {
     toggle(product.id);
@@ -1051,7 +1064,7 @@ function ProductDetailPage({ id, navigate }) {
           {/* QR */}
           <div className="qr-section">
             <div className="qr-wrap">
-              <QRPlaceholder url={productUrl} size={64} />
+              <QRCode value={productUrl} />
             </div>
             <div className="qr-text">
               <h4>QR Code — Product #{product.id}</h4>
